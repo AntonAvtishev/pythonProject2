@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Новости за 7 дней</title>
+</head>
+<body>{% for post in posts %}
+
+{% if category in post.category.all %}
+<h2> В категории: {{ category }} появилась новая запись!</h2>
+<a href="http://127.0.0.1:8000/{% url 'post_detail' post.id %}"> {{ post.title }}</a>
+<p>{{ post.text }}</p>
+{% endif %}
+{% endfor %}
+
+</body>
+</html>
