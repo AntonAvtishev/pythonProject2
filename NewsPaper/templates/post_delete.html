@@ -1,0 +1,23 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %} Product list {% endblock title %}
+
+{% block content %}
+<h2>Вы действительно хотите удалить эту статью?</h2>
+<div class="card">
+    <div class="card-header">
+        <h1>{{ post.title|censor }}</h1>
+    </div>
+    <div class="card-body">
+        <span class="badge bg-info">{{ post.dateCreation|date:'d-m-Y H:i' }}</span>
+        <p>{{ post.text|censor }}</p>
+    </div>
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Удалить">
+</form>
+{% endblock content %}

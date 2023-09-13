@@ -1,0 +1,67 @@
+from news_portal.models import * 
+
+>>> user_1 = User.objects.create_user(username='User1') 
+>>> user_2 = User.objects.create_user(username='User2') 
+
+
+>>> author_1 = Author.objects.create(user=user_1)   
+>>> author_2 = Author.objects.create(user=user_2) 
+
+>>> sport = Category.objects.create(name = 'Спорт')   
+>>> politics = Category.objects.create(name = 'Политика') 
+>>> economy = Category.objects.create(name = 'Экономика')  
+>>> culture = Category.objects.create(name = 'Культура') 
+       
+
+>>> news_1 = Post.objects.create(author = author_1,type='AR', title = 'Спортсмен вывихнул руку', text='Произошло это на поле для футбола') 
+>>> news_2 = Post.objects.create(author = author_2,type='AR', title = 'Пошёл дождь', text='Из-за дождя спортсмен подскользнулся и сломал руку') 
+>>> news_3 = Post.objects.create(author = author_2,type='NW', title = 'Что-то ещё', text='хватит на сегодня сломанных рук')   
+
+Cat_post1 = PostCategory.objects.create(post = Post.objects.get(id=6), category = Category.objects.get(id=1))  
+Cat_post2 = PostCategory.objects.create(post = Post.objects.get(id=10), category = Category.objects.get(id=3))  
+
+>>> comment_1 = Comment.objects.create(post = Post.objects.get(id=1), user = User.objects.get(id=1), text = 'Вау') 
+>>> comment_2 = Comment.objects.create(post = Post.objects.get(id=2), user = User.objects.get(id=2), text = 'Ничего себе')  
+>>> comment_3 = Comment.objects.create(post = Post.objects.get(id=3), user = User.objects.get(id=2), text = 'Невероятно!')  
+>>> comment_4 = Comment.objects.create(post = Post.objects.get(id=3), user = User.objects.get(id=2), text = 'Думал будет хуже')   
+
+
+Post.objects.get(id=1).like()
+Post.objects.get(id=1).like()
+Post.objects.get(id=1).like()
+Post.objects.get(id=2).like() 
+Post.objects.get(id=3).like() 
+Post.objects.get(id=3).like()
+Post.objects.get(id=3).dislike() 
+Post.objects.get(id=1).dislike() 
+Comment.objects.get(id=1).like()  
+Comment.objects.get(id=2).like() 
+Comment.objects.get(id=3).like() 
+Comment.objects.get(id=2).dislike() 
+Comment.objects.get(id=1).like()  
+
+
+
+author_1.update_rating 
+author_2.update_rating 
+
+
+>>> r = Author.objects.order_by('-user_rating').values('user__username', 'user_rating').first()
+>>> r
+
+
+>>> rp = Post.objects.order_by('-rating').values('time_in', 'author__user__username', 'rating', 'title').first()      
+>>> rp
+
+>>> rp_for_preview = Post.objects.order_by('-rating').first()
+>>> rp_for_preview.preview()  
+
+>>> comments = Comment.objects.filter(post=rp_for_preview) 
+>>> comments
+
+
+
+
+
+ 
+
